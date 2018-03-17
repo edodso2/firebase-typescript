@@ -86,7 +86,7 @@ playerPosRef.on('value', function(snapshot) {
 });
 
 function updateCoords(coords) {
-  coordsDiv.innerHTML = `coords: ${coords.x}, ${coords.y}`;
+  coordsDiv.innerHTML = `coords: ${coords.left}, ${coords.top}`;
 }
 
 // update position in database. when the position
