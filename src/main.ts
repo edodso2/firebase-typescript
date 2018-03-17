@@ -3,14 +3,8 @@ import { config } from './config';
 
 import './style.scss';
 
-
-
 // Write TypeScript code!
 const appDiv: HTMLElement = document.getElementById('app');
-
-const coordsDiv: HTMLElement = document.createElement('div');
-coordsDiv.setAttribute('class', 'coords');
-appDiv.appendChild(coordsDiv);
 
 const player: HTMLElement = document.createElement('div');
 player.setAttribute('class', 'player');
@@ -20,11 +14,16 @@ const player2: HTMLElement = document.createElement('div');
 player2.setAttribute('class', 'player2');
 appDiv.appendChild(player2);
 
-const players = [{
-  identifier: 'player',
-  element: player},{
-  identifier: 'player2',
-  element: player2}];
+const players = [
+  {
+    identifier: 'player',
+    element: player
+  }, 
+  {
+    identifier: 'player2',
+    element: player2
+  }
+];
 
 let currentPlayer = players[1];
 
@@ -38,30 +37,30 @@ let left;
 
 function checkKey(e) {
 
-    e = e || window.event;
+  e = e || window.event;
 
-    if (e.keyCode == '38') {
-      // up arrow
-      up-=5;
-      currentPlayer.element.style.top = `${up}px`;
-    }
-    else if (e.keyCode == '40') {
-      // down arrow
-      up+=5;
-      currentPlayer.element.style.top = `${up}px`;
-    }
-    else if (e.keyCode == '37') {
-       // left arrow
-       left-=5;
-       currentPlayer.element.style.left = `${left}px`;
-    }
-    else if (e.keyCode == '39') {
-       // right arrow
-       left+=5;
-       currentPlayer.element.style.left = `${left}px`;
-    }
+  if (e.keyCode == '38') {
+    // up arrow
+    up -= 5;
+    currentPlayer.element.style.top = `${up}px`;
+  }
+  else if (e.keyCode == '40') {
+    // down arrow
+    up += 5;
+    currentPlayer.element.style.top = `${up}px`;
+  }
+  else if (e.keyCode == '37') {
+    // left arrow
+    left -= 5;
+    currentPlayer.element.style.left = `${left}px`;
+  }
+  else if (e.keyCode == '39') {
+    // right arrow
+    left += 5;
+    currentPlayer.element.style.left = `${left}px`;
+  }
 
-    updatePos(left, up);
+  updatePos(left, up);
 }
 
 /**
@@ -77,29 +76,23 @@ let app;
 // page refresh. Maybe firebase does some caching?
 try {
   app = firebase.app();
-} catch(err) {
+} catch (err) {
   app = firebase.initializeApp(config);
 }
 
 // get the initial values for the app. I think the realtime
 // function below is also called when page loads so this funciton
 // could be removed
-firebase.database().ref().once('value').then(function(snapshot) {
+firebase.database().ref().once('value').then(function (snapshot) {
   updatePlayers(snapshot.val());
 });
 
 // show the new coords on the page to demo the realtime
 // update of the database.
 var playerPosRef = firebase.database().ref();
-playerPosRef.on('value', function(snapshot) {
-  updateCoords(snapshot.val());
+playerPosRef.on('value', function (snapshot) {
   updatePlayers(snapshot.val());
 });
-
-function updateCoords(players) {
-  // coordsDiv.innerHTML = `coords: ${coords.left}, ${coords.top}`;
-  console.log(player);
-}
 
 // update position in database. when the position
 // is updated the above 'on' function is called.
@@ -115,7 +108,7 @@ function updatePlayers(playerValues) {
   left = playerValues[currentPlayer.identifier].left;
 
   players.forEach(player => {
-    player.element.style.top = playerValues[player.identifier].top;
-    player.element.style.left = playerValues[player.identifier].left;
+    player.element.style.top = playerValues[player.identifier].top + 'px';
+    player.element.style.left = playerValues[player.identifier].left + 'px';
   });
 }
