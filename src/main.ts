@@ -1,4 +1,5 @@
 import * as firebase from 'firebase';
+import { PlayerListener } from './playerListener';
 import { config } from './config';
 
 import './style.scss';
@@ -30,7 +31,7 @@ let currentPlayer = players[0];
 /**
  * Key events to update player position.
  */
-document.onkeydown = checkKey;
+let playerListener = new PlayerListener(currentPlayer);
 
 let up;
 let left;
@@ -84,6 +85,7 @@ try {
 // function below is also called when page loads so this funciton
 // could be removed
 firebase.database().ref().once('value').then(function (snapshot) {
+  console.log(snapshot.val());
   updatePlayers(snapshot.val());
 });
 
