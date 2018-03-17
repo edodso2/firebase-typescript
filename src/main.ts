@@ -1,7 +1,7 @@
 import * as firebase from 'firebase';
 import { config } from './config';
 
-import './style.css';
+import './style.scss';
 
 // Write TypeScript code!
 const appDiv: HTMLElement = document.getElementById('app');
