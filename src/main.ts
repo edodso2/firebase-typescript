@@ -7,6 +7,10 @@ import './style.scss';
 interface Player {
   identifier: string;
   element: HTMLElement;
+  pos: {
+    top: number,
+    left: number
+  }
 }
 
 // Write TypeScript code!
@@ -85,6 +89,8 @@ firebase.database().ref().once('value').then(function (snapshot) {
   currentPlayer = players[0];
 
   updatePlayers(snapshot.val());
+
+  console.log(players);
 });
 
 function addPlayers(playersValue) {
@@ -102,7 +108,8 @@ function addPlayers(playersValue) {
       // Push the player onto the players array
       players.push({
         identifier: key,
-        element: playerElem
+        element: playerElem,
+        pos: playersValue[key]
       });
     }
 }
