@@ -75,11 +75,11 @@ try {
 // function below is also called when page loads so this funciton
 // could be removed
 firebase.database().ref('/player').once('value').then(function(snapshot) {
-  player.style.top = snapshot.val().y + 'px';
-  player.style.left = snapshot.val().x + 'px';
+  player.style.top = snapshot.val().top + 'px';
+  player.style.left = snapshot.val().left + 'px';
 
-  up = snapshot.val().y;
-  left = snapshot.val().x;
+  up = snapshot.val().top;
+  left = snapshot.val().left;
 });
 
 // show the new coords on the page to demo the realtime
@@ -95,9 +95,9 @@ function updateCoords(coords) {
 
 // update position in database. when the position
 // is updated the above 'on' function is called.
-function updatePos(x, y) {
+function updatePos(left, top) {
   firebase.database().ref('/player').set({
-    x,
-    y
+    left,
+    top
   });
 }
