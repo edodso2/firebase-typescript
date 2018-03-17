@@ -3,6 +3,8 @@ import { config } from './config';
 
 import './style.scss';
 
+
+
 // Write TypeScript code!
 const appDiv: HTMLElement = document.getElementById('app');
 
@@ -17,6 +19,14 @@ appDiv.appendChild(player);
 const player2: HTMLElement = document.createElement('div');
 player2.setAttribute('class', 'player2');
 appDiv.appendChild(player2);
+
+const players = [{
+  identifier: 'player',
+  element: player},{
+  identifier: 'player2',
+  element: player2}];
+
+let currentPlayer = players[1];
 
 /**
  * Key events to update player position.
@@ -33,22 +43,22 @@ function checkKey(e) {
     if (e.keyCode == '38') {
       // up arrow
       up-=5;
-      player.style.top = `${up}px`;
+      currentPlayer.element.style.top = `${up}px`;
     }
     else if (e.keyCode == '40') {
       // down arrow
       up+=5;
-      player.style.top = `${up}px`;
+      currentPlayer.element.style.top = `${up}px`;
     }
     else if (e.keyCode == '37') {
        // left arrow
        left-=5;
-       player.style.left = `${left}px`;
+       currentPlayer.element.style.left = `${left}px`;
     }
     else if (e.keyCode == '39') {
        // right arrow
        left+=5;
-       player.style.left = `${left}px`;
+       currentPlayer.element.style.left = `${left}px`;
     }
 
     updatePos(left, up);
