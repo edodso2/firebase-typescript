@@ -25,7 +25,7 @@ const players = [
   }
 ];
 
-let currentPlayer = players[0];
+let currentPlayer = players[1];
 
 /**
  * Key events to update player position.
