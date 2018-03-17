@@ -14,6 +14,10 @@ const player: HTMLElement = document.createElement('div');
 player.setAttribute('class', 'player');
 appDiv.appendChild(player);
 
+const player2: HTMLElement = document.createElement('div');
+player2.setAttribute('class', 'player2');
+appDiv.appendChild(player2);
+
 /**
  * Key events to update player position.
  */
