@@ -74,12 +74,21 @@ try {
 // get the initial values for the app. I think the realtime
 // function below is also called when page loads so this funciton
 // could be removed
-firebase.database().ref('/player').once('value').then(function(snapshot) {
-  player.style.top = snapshot.val().top + 'px';
-  player.style.left = snapshot.val().left + 'px';
+firebase.database().ref().once('value').then(function(snapshot) {
+  const playerVal = snapshot.val().player;
+  const playerVal2 = snapshot.val().player2;
 
-  up = snapshot.val().top;
-  left = snapshot.val().left;
+  console.log(snapshot);
+  console.log(snapshot.val());
+
+  player.style.top = playerVal.top + 'px';
+  player.style.left = playerVal.left + 'px';
+
+  player2.style.top = playerVal2.top + 'px';
+  player2.style.left = playerVal2.left + 'px';
+
+  up = playerVal.top;
+  left = playerVal.left;
 });
 
 // show the new coords on the page to demo the realtime
