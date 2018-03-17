@@ -36,34 +36,6 @@ let playerListener = new PlayerListener(currentPlayer);
 let up;
 let left;
 
-function checkKey(e) {
-
-  e = e || window.event;
-
-  if (e.keyCode == '38') {
-    // up arrow
-    up -= 5;
-    currentPlayer.element.style.top = `${up}px`;
-  }
-  else if (e.keyCode == '40') {
-    // down arrow
-    up += 5;
-    currentPlayer.element.style.top = `${up}px`;
-  }
-  else if (e.keyCode == '37') {
-    // left arrow
-    left -= 5;
-    currentPlayer.element.style.left = `${left}px`;
-  }
-  else if (e.keyCode == '39') {
-    // right arrow
-    left += 5;
-    currentPlayer.element.style.left = `${left}px`;
-  }
-
-  updatePos(left, up);
-}
-
 /**
  * Firebase stuff
  */
