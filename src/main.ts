@@ -25,7 +25,7 @@ const players = [
   }
 ];
 
-let currentPlayer = players[1];
+let currentPlayer = players[0];
 
 /**
  * Key events to update player position.
@@ -97,7 +97,7 @@ playerPosRef.on('value', function (snapshot) {
 // update position in database. when the position
 // is updated the above 'on' function is called.
 function updatePos(left, top) {
-  firebase.database().ref(currentPlayer.identifier).set({
+  firebase.database().ref('/' + currentPlayer.identifier).set({
     left,
     top
   });
