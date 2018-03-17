@@ -75,38 +75,37 @@ try {
 // function below is also called when page loads so this funciton
 // could be removed
 firebase.database().ref().once('value').then(function(snapshot) {
-  const playerVal = snapshot.val().player;
-  const playerVal2 = snapshot.val().player2;
-
-  console.log(snapshot);
-  console.log(snapshot.val());
-
-  player.style.top = playerVal.top + 'px';
-  player.style.left = playerVal.left + 'px';
-
-  player2.style.top = playerVal2.top + 'px';
-  player2.style.left = playerVal2.left + 'px';
-
-  up = playerVal.top;
-  left = playerVal.left;
+  updatePlayers(snapshot.val());
 });
 
 // show the new coords on the page to demo the realtime
 // update of the database.
-var playerPosRef = firebase.database().ref('/player');
+var playerPosRef = firebase.database().ref();
 playerPosRef.on('value', function(snapshot) {
   updateCoords(snapshot.val());
+  updatePlayers(snapshot.val());
 });
 
-function updateCoords(coords) {
-  coordsDiv.innerHTML = `coords: ${coords.left}, ${coords.top}`;
+function updateCoords(players) {
+  // coordsDiv.innerHTML = `coords: ${coords.left}, ${coords.top}`;
+  console.log(player);
 }
 
 // update position in database. when the position
 // is updated the above 'on' function is called.
 function updatePos(left, top) {
-  firebase.database().ref('/player').set({
+  firebase.database().ref(currentPlayer.identifier).set({
     left,
     top
+  });
+}
+
+function updatePlayers(playerValues) {
+  up = playerValues[currentPlayer.identifier].top;
+  left = playerValues[currentPlayer.identifier].left;
+
+  players.forEach(player => {
+    player.element.style.top = playerValues[player.identifier].top;
+    player.element.style.left = playerValues[player.identifier].left;
   });
 }
