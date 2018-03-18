@@ -16,15 +16,8 @@ interface Player {
 // Write TypeScript code!
 const appDiv: HTMLElement = document.getElementById('app');
 
-let players: Player[];
+let players: Player[] = [];
 let currentPlayer: Player;
-
-// Makefix Constructor
-// TODO: create a main class
-function constructor() {
-  players = [];
-};
-constructor();
 
 /**
  * Key events to update player position.
@@ -55,12 +48,10 @@ firebase.database().ref().once('value').then(function (snapshot) {
   addPlayers(snapshot.val());
 
   // TODO: ask for the current player here...
-  currentPlayer = players[0];
+  currentPlayer = players[1];
   playerListener = new PlayerListener(currentPlayer);
 
   updatePlayers(snapshot.val());
-
-  console.log(players);
 });
 
 function addPlayers(playersValue) {
@@ -84,6 +75,7 @@ function addPlayers(playersValue) {
     }
 }
 
+// random colors for the players
 function getRandomHexColor() {
   return '#'+Math.floor(Math.random()*16777215).toString(16);
 }
@@ -100,7 +92,6 @@ function updatePlayers(playerValues) {
   // adding the players.length so that this code won't run unless
   // the players array is initialized
   if (players.length) {
-  
     players.forEach(player => {
       player.element.style.top = playerValues[player.identifier].top + 'px';
       player.element.style.left = playerValues[player.identifier].left + 'px';
